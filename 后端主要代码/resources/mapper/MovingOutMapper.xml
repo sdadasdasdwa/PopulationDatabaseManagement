@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongruan.population.mapper.MovingOutMapper">
+
+    <resultMap id="BaseResultMap" type="com.dongruan.population.entity.MovingOut">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="cardNumber" column="card_number" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="nation" column="nation" jdbcType="VARCHAR"/>
+        <result property="registered" column="registered" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="movingOut" column="moving_out" jdbcType="VARCHAR"/>
+        <result property="reason" column="reason" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,name,card_number,
+        sex,phone_number,nation,
+        registered,birthday,address,
+        moving_out,reason
+    </sql>
+
+
+    <update id="updateMovingOut">
+        update moving_out
+        <set>
+            <if test="movingOut!=null and movingOut!='' " >
+                moving_out = #{movingOut},
+            </if>
+            <if test="reason!=null and reason!='' ">
+                reason = #{reason},
+            </if>
+        </set>
+        <where>
+            1=1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+    </update>
+
+
+    <select id="selectMovingOut" resultType="com.dongruan.population.entity.MovingOut">
+        select * from moving_out
+        <where>
+            1=1
+            <if test="name != null and name != '' ">
+                and name = #{name}
+            </if>
+            <if test="cardNumber != null and cardNumber != '' ">
+                and card_number = #{cardNumber}
+            </if>
+            <if test="sex != null and sex != '' ">
+                and sex = #{sex}
+            </if>
+            <if test="phoneNumber != null and phoneNumber != '' ">
+                and phone_number = #{phoneNumber}
+            </if>
+            <if test="nation != null and nation != '' ">
+                and nation = #{nation}
+            </if>
+            <if test="movingOut != null and movingOut != '' ">
+                and moving_out = #{movingOut}
+            </if>
+
+
+        </where>
+    </select>
+
+</mapper>

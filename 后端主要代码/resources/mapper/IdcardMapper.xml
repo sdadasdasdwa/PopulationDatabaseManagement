@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongruan.population.mapper.IdcardMapper">
+
+    <resultMap id="BaseResultMap" type="com.dongruan.population.entity.Idcard">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="cardNumber" column="card_number" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="birthdate" column="birthdate" jdbcType="DATE"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,card_number,name,
+        birthdate,address,status,
+        created_at,updated_at
+    </sql>
+    <update id="updateIDcard">
+        update idcard
+        <set>
+            <if test="status!=null and status!=''">
+                status  = #{status}
+            </if>
+        </set>
+        <where>
+            1=1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <select id="queryIdCard" resultType="com.dongruan.population.entity.Idcard">
+        select * from idcard
+        <where>
+            1=1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="cardNumber != null and cardNumber != '' ">
+                and card_number = #{cardNumber}
+            </if>
+            <if test="name != null and name != '' ">
+                and name = #{name}
+            </if>
+            <if test="birthdate != null">
+                and birthdate = #{birthdate}
+--                 and date_format(birthdate, '%Y-%m-%d') = #{birthdate}
+            </if>
+            <if test="address != null and address != '' ">
+                and address = #{address}
+            </if>
+
+
+        </where>
+    </select>
+    <select id="selectIDcard" resultType="com.dongruan.population.entity.Idcard">
+        select * from idcard
+        <where>
+            1=1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="cardNumber != null and cardNumber != '' ">
+                and card_number = #{cardNumber}
+            </if>
+            <if test="name != null and name != '' ">
+                and name = #{name}
+            </if>
+            <if test="birthdate != null">
+                and date_format(birthdate, '%Y-%m-%d') = #{birthdate}
+            </if>
+            <if test="address != null and address != '' ">
+                and address = #{address}
+            </if>
+        </where>
+    </select>
+</mapper>
